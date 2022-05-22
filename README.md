@@ -1,18 +1,25 @@
 # Apriori-algorithm
-A python program to read a csv file with transactions and finds the frequent itemsets.
+A python program to read a `.csv` file with transactions and finds the frequent itemsets and association rules.
 
 ## Usage
-Clone repository
+Clone the repository
 
-Make a file called apriori in the same folder. You can test the example csv file. Just remove the .example extension.
+Make a file called `apriori.csv` in the same folder, and copy in the transactions. You can test the example csv file. Just remove the `.example` extension.
 
-run the script with
+Run the script with python:
 
 ```bash
-python apriori.py #min_support_count: int #min_confidence_threshold: float
+python apriori.py #min_support_count:<int> #min_confidence_threshold:<float>
 ```
 
-The filename can be changed in the code
+or
+
+```bash
+./apriori.py #min_support_count:<int> #min_confidence_threshold:<float>
+```
+
+
+The filename for the .csv can be changed in the code
 
 After running the script you can choose a itemset to genereate a table for 
 
