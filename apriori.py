@@ -120,6 +120,7 @@ def print_association_rules_table(itemset, all_support_counts, threshold):
     canidates = get_association_rules_candidates(frozenset(itemset))
     print(f"\nMinimum confidence threshold: {threshold}")
     table = []
+    accepted_association_rules = []
     for (first, secound) in canidates.items():
         row = []
         for version in secound:
@@ -130,11 +131,17 @@ def print_association_rules_table(itemset, all_support_counts, threshold):
             row.append(str(all_support_counts[first]))
             confidence = all_support_counts[frozenset(itemset)] / all_support_counts[first]
             row.append(str(confidence))
-            accepted = "Yes" if confidence >= threshold else "No"
-            row.append(accepted)
-        table.append(row)
+            accepted = confidence >= threshold
+            row.append("Yes" if accepted else "No")
+            table.append(row)
+            if accepted:
+                accepted_association_rules.append(row[:2])
     print("\n",tabulate(table, headers=[
         "Candidate", "Candidate", "Support", "Confidence", "Accepted?"], tablefmt="pretty"),"\n")
+    print("\n------Accepted Association rules-------")
+    for rule in accepted_association_rules:
+        print("{"+ rule[0] + "}" + " => " + "{" + rule[1] + "}", end="\t")
+    print("")
     
 
 def main():
@@ -201,7 +208,6 @@ def main():
     if chosen_itemset not in all_frequent_itemsets_flattened:
         print("Invalid input")
     print_association_rules_table(chosen_itemset, all_frequent_support_counts, min_threshold)
-    
 
         
 if __name__ == "__main__":
